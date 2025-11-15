@@ -1,0 +1,17 @@
+{
+  "name": "MealMate - Food Waste Tracker",
+  "short_name": "MealMate",
+  "description": "Reduce food waste in college hostels with AI-powered meal confirmations",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#22c55e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -1,35 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Leaf, Utensils } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { signIn, user, profile, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"student" | "admin">("student");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Mock authentication
-    if (email && password) {
-      localStorage.setItem("userRole", role);
-      localStorage.setItem("userName", email.split("@")[0]);
-      toast.success("Welcome to MealMate!");
-      
-      if (role === "admin") {
+  useEffect(() => {
+    if (user && profile && !loading) {
+      if (profile.role === 'admin' || profile.role === 'canteen_staff') {
         navigate("/admin");
       } else {
         navigate("/home");
       }
-    } else {
+    }
+  }, [user, profile, loading, navigate]);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email || !password) {
       toast.error("Please fill in all fields");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await signIn(email, password);
+      toast.success("Welcome to MealMate!");
+    } catch (error: any) {
+      toast.error(error.message || "Failed to sign in");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -75,20 +86,12 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="role">Login as</Label>
-              <Select value={role} onValueChange={(value: "student" | "admin") => setRole(value)}>
-                <SelectTrigger id="role">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="student">Student</SelectItem>
-                  <SelectItem value="admin">Admin / Management</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <Button type="submit" className="w-full bg-eco-gradient hover:opacity-90 transition-opacity">
-              Login
+            <Button
+              type="submit"
+              className="w-full bg-eco-gradient hover:opacity-90 transition-opacity"
+              disabled={isSubmitting || loading}
+            >
+              {isSubmitting ? "Signing in..." : "Login"}
             </Button>
             <Button type="button" variant="link" className="w-full text-sm text-muted-foreground">
               Forgot password?
