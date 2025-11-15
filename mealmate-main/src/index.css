@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 147 8% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 147 8% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 147 8% 20%;
+
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 28 80% 52%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 147 10% 96%;
+    --muted-foreground: 147 8% 45%;
+
+    --accent: 142 71% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 28 80% 52%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 147 15% 90%;
+    --input: 147 15% 90%;
+    --ring: 142 76% 36%;
+
+    --radius: 0.75rem;
+
+    --eco-gradient: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 71% 45%));
+    --food-gradient: linear-gradient(135deg, hsl(28 80% 52%), hsl(33 100% 53%));
+    --card-shadow: 0 2px 8px hsl(147 8% 20% / 0.08);
+    --card-hover-shadow: 0 4px 16px hsl(147 8% 20% / 0.12);
+  }
+
+  .dark {
+    --background: 147 15% 8%;
+    --foreground: 0 0% 95%;
+
+    --card: 147 15% 12%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 147 15% 12%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 28 80% 52%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 147 15% 18%;
+    --muted-foreground: 147 8% 65%;
+
+    --accent: 142 71% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 28 80% 52%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 147 15% 22%;
+    --input: 147 15% 22%;
+    --ring: 142 71% 45%;
+
+    --card-shadow: 0 2px 8px hsl(0 0% 0% / 0.3);
+    --card-hover-shadow: 0 4px 16px hsl(0 0% 0% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
